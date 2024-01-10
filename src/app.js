@@ -3,9 +3,11 @@ const bodyParser = require("body-parser");
 const app = express();
 const { db } = require("./firebase");
 const { body, validationResult } = require('express-validator');
+const cors = require("cors");
 
 // Middleware
 app.use(bodyParser.json());
+app.use(cors()); 
 
 const booksCollection = db.collection("books");
 
