@@ -44,7 +44,7 @@ app.get("/books/:id", async (req, res) => {
 app.post("/books", [
   body('title').notEmpty(),
   body('author').notEmpty(),
-  body('year').isInt(),
+  body('genre').notEmpty(),
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

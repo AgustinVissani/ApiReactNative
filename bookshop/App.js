@@ -1,38 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import { StyleSheet, Text, View } from 'react-native';
-import {createStackNavigator} from '@react-navigation/stack';
-import ListBooks from './screens/ListBooks';
-import CreateBook from './screens/CreateBook';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
+import CreateBook from "./screens/CreateBook";
+import CreateForms from "./screens/CreateForms";
+import EditBook from "./screens/EditBook";
+import ListBooks from "./screens/ListBooks";
+import { BooksProvider } from './screens/BooksContext';
 
 const Stack = createStackNavigator();
 
-
-function MyStack(){
-  return(
-    <Stack.Navigator>
-      <Stack.Screen name="CreateBook" component={CreateBook}/>
-      <Stack.Screen name="ListBooks" component={ListBooks}/>
+function MyStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "black",
+        },
+        headerTintColor: "white",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+    >
+      <Stack.Screen name="List Books" component={ListBooks} />
+      <Stack.Screen name="Create Forms" component={CreateForms} />
+      <Stack.Screen name="Create Book" component={CreateBook} />
+      <Stack.Screen name="Edit Book" component={EditBook} />
     </Stack.Navigator>
-  )
-
+  );
 }
 
 export default function App() {
   return (
     <NavigationContainer>
-      <MyStack></MyStack>
+      <BooksProvider>
+        <MyStack />
+      </BooksProvider>
     </NavigationContainer>
-
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

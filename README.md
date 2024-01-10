@@ -52,3 +52,12 @@ No hay límite de tiempo establecido para completar la prueba técnica. Los cand
 pueden trabajar a su propio ritmo y enviar sus soluciones cuando estén listas.
 Los candidatos serán seleccionados y evaluados por estricto orden de llegada. Esto
 significa que se revisarán y evaluarán las soluciones en el orden en que se reciban.
+
+
+Run Back-End:
+npm run dev
+
+Run Front-End:
+Open the terminal, write (cd bookshop)
+expo start
+Press letter "W" for desktop
