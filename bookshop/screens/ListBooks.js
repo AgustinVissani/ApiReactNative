@@ -7,6 +7,7 @@ import {
   Pressable,
   View,
   StyleSheet,
+  Text,
 } from "react-native";
 
 import { useBooks } from "./BooksContext";
@@ -37,11 +38,15 @@ const ListBooks = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <FlatList
-        data={books}
-        keyExtractor={keyExtractor}
-        renderItem={renderItem}
-      />
+      {books.length == 0 ? (
+        <Text>There are no books available</Text>
+      ) : (
+        <FlatList
+          data={books}
+          keyExtractor={keyExtractor}
+          renderItem={renderItem}
+        />
+      )}
       {selectedBook && (
         <Modal
           animationType="slide"
@@ -50,10 +55,7 @@ const ListBooks = ({ navigation }) => {
           onRequestClose={closeModal}
         >
           <View>
-            <DetailsBook
-              book={selectedBook}
-              closeModal={closeModal}
-            />
+            <DetailsBook book={selectedBook} closeModal={closeModal} />
           </View>
         </Modal>
       )}
