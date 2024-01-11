@@ -1,7 +1,7 @@
 import React from "react";
-import { ListItem, Avatar } from "react-native-elements";
+import { ListItem } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
-import { Pressable, Text, StyleSheet } from "react-native";
+import { Pressable, Text, StyleSheet, Alert } from "react-native";
 
 import { useBooks } from './BooksContext';
 
@@ -13,9 +13,18 @@ const RenderBook = ({ book }) => {
     navigation.navigate("Edit Book", { book });
   };
 
+  const handleDelete = () =>
+    Alert.alert('Delete Book', 'Are you sure you want to delete this book?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'Delete',  onPress: () => deleteBook(book.id)},
+    ]);
+
   return (
     <ListItem bottomDivider>
-      <Avatar source={{ uri: book.avatar }} />
       <ListItem.Content>
         <ListItem.Title>{book.title}</ListItem.Title>
         <ListItem.Subtitle>{book.author}</ListItem.Subtitle>
@@ -31,7 +40,7 @@ const RenderBook = ({ book }) => {
 
       <Pressable
         style={styles.deleteButton}
-        onPress={() => deleteBook(book.id)}
+        onPress={() =>handleDelete(book.id)}
       >
         <Text style={styles.buttonText}>DELETE</Text>
       </Pressable>
@@ -53,6 +62,12 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
   },
+  container: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
 });
+
 
 export default RenderBook;

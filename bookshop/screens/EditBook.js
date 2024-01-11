@@ -24,10 +24,9 @@ const EditBook = () => {
           year: book.year,
           synopsis: book.synopsis,
           pages: book.pages,
-          avatar: book.avatar,
         }}
         onSave={handleSave}
-      />
+      />      
     </ScrollView>
   );
 };

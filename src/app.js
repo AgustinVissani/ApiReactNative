@@ -1,13 +1,13 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const app = express();
-const { db } = require("./firebase");
-const { body, validationResult } = require('express-validator');
+const bodyParser = require("body-parser");
 const cors = require("cors");
+const { db } = require("./firebase");
+const { body, validationResult } = require("express-validator");
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors()); 
+app.use(cors());
 
 const booksCollection = db.collection("books");
 
@@ -18,7 +18,6 @@ app.get("/books", async (req, res) => {
     const books = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     res.json(books);
   } catch (error) {
-    console.error("Error getting books", error);
     res.status(500).json({ error: "Error getting books" });
   }
 });
@@ -33,44 +32,42 @@ app.get("/books/:id", async (req, res) => {
       res.status(404).json({ error: "Book not found" });
       return;
     }
-
     res.json({ id: doc.id, ...doc.data() });
   } catch (error) {
-    console.error(`Error getting book with ID ${bookId}`, error);
     res.status(500).json({ error: `Error getting book with ID ${bookId}` });
   }
 });
 
-app.post("/books", [
-  body('title').notEmpty(),
-  body('author').notEmpty(),
-  body('genre').notEmpty(),
-], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+app.post(
+  "/books",
+  [
+    body("title").notEmpty(),
+    body("author").notEmpty(),
+    body("genre").notEmpty(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      await booksCollection.add(req.body);
+      res.json({ message: "Book save successfully" });
+    } catch (error) {
+      res.status(500).json({ error: "Error creating book" });
+    }
   }
-  try {
-    const newBook = req.body;
-    const docRef = await booksCollection.add(newBook);
-    const createdBook = await docRef.get();
-    res.json({ id: docRef.id, ...createdBook.data() });
-  } catch (error) {
-    console.error("Error creating book", error);
-    res.status(500).json({ error: "Error creating book" });
-  }
-});
+);
 
 app.put("/books/:id", async (req, res) => {
   const bookId = req.params.id;
   const updatedData = req.body;
 
   try {
-    await booksCollection.doc(bookId).update(updatedData);
-    const updatedBook = await booksCollection.doc(bookId).get();
-    res.json({ id: bookId, ...updatedBook.data() });
+    await booksCollection.doc(bookId).update(updatedData);    
+    res.json({ message: "Book update successfully" });
   } catch (error) {
-    console.error(`Error updating book with ID ${bookId}`, error);
     res.status(500).json({ error: `Error updating book with ID ${bookId}` });
   }
 });
@@ -80,9 +77,8 @@ app.delete("/books/:id", async (req, res) => {
 
   try {
     await booksCollection.doc(bookId).delete();
-    res.json({ message: "Book deleted successfully" }); //respuesta de solo el mensaje de que fue eliminado
+    res.json({ message: "Book deleted successfully" });
   } catch (error) {
-    console.error(`Error deleting book with ID ${bookId}`, error);
     res.status(500).json({ error: `Error deleting book with ID ${bookId}` });
   }
 });

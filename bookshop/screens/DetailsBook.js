@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Text, View, Button, StyleSheet, useWindowDimensions, Image, ScrollView } from "react-native";
+import { Modal, Text, View, Button, StyleSheet, useWindowDimensions, ScrollView } from "react-native";
 
 const DetailsBook = ({ book, closeModal }) => {
   const windowWidth = useWindowDimensions().width;
@@ -29,12 +29,6 @@ const DetailsBook = ({ book, closeModal }) => {
       fontSize: windowWidth < 600 ? 14 : 16,
       marginBottom: 5,
     },
-    avatar: {
-      width: 100,
-      height: 100,
-      borderRadius: 50,
-      marginBottom: 10,
-    },
     synopsisContainer: {
       maxHeight: windowHeight * 0.3,
       marginBottom: 10,
@@ -53,7 +47,6 @@ const DetailsBook = ({ book, closeModal }) => {
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Image source={{ uri: book.avatar }} style={styles.avatar} />
           <Text style={styles.title}>{book.title}</Text>
           <Text style={styles.text}>Author: {book.author}</Text>
           <Text style={styles.text}>Genre: {book.genre}</Text>

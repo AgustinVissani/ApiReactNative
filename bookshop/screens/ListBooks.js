@@ -39,7 +39,7 @@ const ListBooks = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
       {books.length == 0 ? (
-        <Text>There are no books available</Text>
+        <Text style={styles.noBooksText}>There are no books available</Text>
       ) : (
         <FlatList
           data={books}
@@ -71,6 +71,13 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     paddingTop: 10,
+  },
+  noBooksText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 20,
+    padding:10,
   },
 });
 

@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, StyleSheet, Text } from "react-native";
+import {
+  View,
+  TextInput,
+  Button,
+  StyleSheet,
+  Text
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 const CreateForms = ({ initialValues, onSave }) => {
@@ -9,9 +15,14 @@ const CreateForms = ({ initialValues, onSave }) => {
     title: "",
     author: "",
     genre: "",
+    year: 0,
+    pages: 0,
   });
 
   const handleChangeText = (name, value) => {
+    if ((name === "year" || name === "pages") && !/^[1-9]\d*$/.test(value)) {
+      return;
+    }
     setState({ ...state, [name]: value });
     setErrors({ ...errors, [name]: "" });
   };
@@ -27,6 +38,10 @@ const CreateForms = ({ initialValues, onSave }) => {
         } is required`;
       }
     });
+
+    if (state.year && !/^[1-9]\d*$/.test(state.year)) {
+      newErrors.year = "Year must be a number";
+    }
 
     setErrors(newErrors);
 
@@ -50,11 +65,11 @@ const CreateForms = ({ initialValues, onSave }) => {
             placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
             value={state[field]}
             onChangeText={(value) => handleChangeText(field, value)}
-            style={[
-              styles.input,
-              errors[field] ? styles.inputError : null,
-            ]}
-            placeholderTextColor="#cccccc" 
+            style={[styles.input, errors[field] ? styles.inputError : null]}
+            placeholderTextColor="#cccccc"
+            keyboardType={
+              field === "year" || field === "pages" ? "numeric" : "default"
+            }
           />
           {errors[field] ? (
             <Text style={styles.errorText}>{errors[field]}</Text>
@@ -75,7 +90,6 @@ const styles = StyleSheet.create({
   input: {
     borderBottomColor: "#cccccc",
     borderBottomWidth: 1,
-    fontFamily: "Arial",
     fontSize: 16,
     borderColor: "#cccccc",
     borderWidth: 1,
@@ -84,18 +98,16 @@ const styles = StyleSheet.create({
   inputError: {
     borderBottomColor: "red",
     borderBottomWidth: 1,
-    fontFamily: "Arial",
     fontSize: 16,
     borderColor: "gray",
     borderWidth: 2,
     paddingVertical: 8,
   },
   errorText: {
-    color: "rgba(255, 0, 0, 0.7)", 
-    fontSize: 14, 
+    color: "rgba(255, 0, 0, 0.7)",
+    fontSize: 14,
     marginTop: 5,
-    fontFamily: "Arial",
-  },
+  }
 });
 
 export default CreateForms;

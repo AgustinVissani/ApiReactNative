@@ -20,8 +20,7 @@ const CreateBook = () => {
           genre: "",
           year: "",
           synopsis: "",
-          pages: "",
-          avatar: "",
+          pages: ""
         }}
         onSave={handleSave}
       />
