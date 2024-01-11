@@ -53,11 +53,16 @@ pueden trabajar a su propio ritmo y enviar sus soluciones cuando estén listas.
 Los candidatos serán seleccionados y evaluados por estricto orden de llegada. Esto
 significa que se revisarán y evaluarán las soluciones en el orden en que se reciban.
 
+HOW TO RUN LOCALLY
 
-Run Back-End:
+Run Back-End:it is necessary create a .env file with the GOOGLE_APPLICATION_CREDENTIALS to have a sucessfully connection with the database.
+npm install
 npm run dev
 
-Run Front-End:
+Run Front-End: if you want to test it by android or ios is necessary have a .env file with a REACT_NATIVE_API_URL variable set with http://<ipconfig>:3000/books
 Open the terminal, write (cd bookshop)
+npm install
 expo start
 Press letter "W" for desktop
+
+Notes: If you run this on the web, the delete feature may not work, but if you run the app from Android or iOS, it works fine.

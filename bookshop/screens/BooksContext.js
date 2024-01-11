@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { REACT_NATIVE_API_URL } from "@env";
 
 const BooksContext = createContext();
+const apiRestUrl = process.env.REACT_NATIVE_API_URL || "http://localhost:3000/books";
 
 export const BooksProvider = ({ children }) => {
   const [books, setBooks] = useState([]);
@@ -13,7 +15,7 @@ export const BooksProvider = ({ children }) => {
     } 
     try {
       setLoading(true);
-      const response = await axios.get("http://192.168.1.68:3000/books");
+      const response = await axios.get(apiRestUrl);
       setBooks(response.data);
     } catch (error) {
       console.error("Error fetching books", error);
@@ -32,7 +34,7 @@ export const BooksProvider = ({ children }) => {
     } 
     try {      
       setLoading(true);
-      await axios.post("http://192.168.1.68:3000/books", newBook);
+      await axios.post(apiRestUrl, newBook);
       fetchBooks();
     } catch (error) {
       console.error("Error adding book", error);
@@ -47,7 +49,7 @@ export const BooksProvider = ({ children }) => {
     } 
     try {      
       setLoading(true);
-      await axios.put(`http://192.168.1.68:3000/books/${id}`, updatedBook);
+      await axios.put(`${apiRestUrl}/${id}`, updatedBook);
       fetchBooks();
     } catch (error) {
       console.error("Error editing book", error);
@@ -61,7 +63,7 @@ export const BooksProvider = ({ children }) => {
       return;
     } 
     try {
-      await axios.delete(`http://192.168.1.68:3000/books/${id}`);
+      await axios.delete(`${apiRestUrl}/${id}`);
       fetchBooks();
     } catch (error) {
       console.error("Error deleting book", error);

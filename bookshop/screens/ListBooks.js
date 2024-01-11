@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   FlatList,
-  ScrollView,
   Button,
   Modal,
   Pressable,
@@ -37,7 +36,7 @@ const ListBooks = ({ navigation }) => {
   );
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       {books.length == 0 ? (
         <Text style={styles.noBooksText}>There are no books available</Text>
       ) : (
@@ -63,7 +62,7 @@ const ListBooks = ({ navigation }) => {
         title="Create Book"
         onPress={() => navigation.navigate("Create Book")}
       />
-    </ScrollView>
+    </View>
   );
 };
 
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginTop: 20,
-    padding:10,
+    padding: 10,
   },
 });
 
