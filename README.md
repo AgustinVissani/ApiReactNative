@@ -44,14 +44,7 @@ obtener, crear, actualizar y eliminar libros.
 Entregables esperados
 - Código fuente completo de la API REST desarrollada en Node.js y Express.
 - Código fuente completo de la aplicación móvil en React Native.
-Envío de los entregables
-Los candidatos deberán enviar los entregables a la dirección de correo electrónico de
-empresa (antonio@bubbo.app).
-Condiciones adicionales
-No hay límite de tiempo establecido para completar la prueba técnica. Los candidatos
-pueden trabajar a su propio ritmo y enviar sus soluciones cuando estén listas.
-Los candidatos serán seleccionados y evaluados por estricto orden de llegada. Esto
-significa que se revisarán y evaluarán las soluciones en el orden en que se reciban.
+
 
 HOW TO RUN LOCALLY
 
